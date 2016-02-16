@@ -75,10 +75,14 @@ if (Meteor.isClient) {
 
   Template.chat_message.helpers({
     user1:function(){
-      console.log(Chats.user1Id);
-      return Chats.user1Id;
+      chat = Chats.findOne({_id:Session.get("chatId")});
+      return chat.user1Id;
     },
-  }),
+    user2:function(){
+      chat = Chats.findOne({_id:Session.get("chatId")});
+      return chat.user2Id;
+    },
+  })
 
 
  Template.chat_page.events({
