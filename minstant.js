@@ -82,6 +82,14 @@ if (Meteor.isClient) {
       chat = Chats.findOne({_id:Session.get("chatId")});
       return chat.user2Id;
     },
+    isMyUser:function(userId){
+      if (userId == Meteor.userId()){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   })
 
 
