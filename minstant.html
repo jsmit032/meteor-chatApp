@@ -99,37 +99,37 @@
 
 <template name="user_1">
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2 bg-success user">
 			<div class="row">
 				<div class="col-md-12">
 					<img class="avatar_img" src="/{{owner.profile.avatar}}" />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12 username">
 					<h4>{{owner.profile.username}}</h4>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10">
-			{{text}}
+		<div class="col-md-8">
+			<h5 class="message">{{text}}</h5>
 		</div>
 	</div>
 </template>
 
 <template name="user_2">
 	<div class="row">
-		<div align="right" class="col-md-10">
-			{{text}}
+		<div align="right" class="col-md-8 col-md-offset-2">
+			<h5 class="message">{{text}}</h5>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-2 user">
 			<div class="row">
 				<div class="col-md-12">
 					<img class="avatar_img" src="/{{owner.profile.avatar}}" width="100" />
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12" style="color: red;">
+				<div class="col-md-12 username">
 					<h4>{{owner.profile.username}}</h4>
 				</div>
 			</div>

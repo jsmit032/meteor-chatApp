@@ -7,4 +7,20 @@
 }
 .avatar_img{
 	height:75px;
+	margin: 0 auto;
+	display: block;
+}
+
+.user {
+	padding: 10px 0;
+}
+
+.username {
+	text-align: center;
+}
+
+.message {
+	font-size: 18px;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
