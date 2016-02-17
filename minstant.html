@@ -91,12 +91,18 @@
 <!-- simple template that displays a message -->
 <template name="chat_message">
 	{{#if user1 owner._id}}
-	<h1>user1: {{user1}} Owner ID: {{owner._id}}</h1>
+	{{> user_1}}
+	{{else}}
+	{{> user_2}}
+	{{/if}}
+</template>
+
+<template name="user_1">
 	<div class="row">
 		<div class="col-md-2">
 			<div class="row">
 				<div class="col-md-12">
-					<img src="/{{owner.profile.avatar}}" width="100" />
+					<img class="avatar_img" src="/{{owner.profile.avatar}}" />
 				</div>
 			</div>
 			<div class="row">
@@ -107,18 +113,19 @@
 		</div>
 		<div class="col-md-10">
 			{{text}}
-
 		</div>
 	</div>
-	{{else}}
+</template>
+
+<template name="user_2">
 	<div class="row">
-		<div class="col-md-10">
+		<div align="right" class="col-md-10">
 			{{text}}
 		</div>
 		<div class="col-md-2">
 			<div class="row">
 				<div class="col-md-12">
-					<img src="/{{owner.profile.avatar}}" width="100" />
+					<img class="avatar_img" src="/{{owner.profile.avatar}}" width="100" />
 				</div>
 			</div>
 			<div class="row">
@@ -128,7 +135,6 @@
 			</div>
 		</div>
 	</div>
-	{{/if}}
 </template>
 
 
