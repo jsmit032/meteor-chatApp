@@ -1,13 +1,12 @@
-Chats = new Mongo.Collection("chats");
-
-if (Meteor.isClient) {
-  // subscribe
+// subscribe
   Meteor.subscribe("chats");
   Meteor.subscribe("users");
+
   // set up the main template the the router will use to build pages
   Router.configure({
     layoutTemplate: 'ApplicationLayout'
   });
+
   // specify the top level route, the page users see when they arrive at the site
   Router.route('/', function () {
     console.log("rendering root /");
@@ -95,8 +94,11 @@ if (Meteor.isClient) {
     }
   })
 
+  /////////
+  // EVENTS
+  /////////
 
- Template.chat_page.events({
+  Template.chat_page.events({
   // this event fires when the user sends a message on the chat page
   'submit .js-send-chat':function(event){
     // stop the form from triggering a page reload
@@ -125,31 +127,5 @@ if (Meteor.isClient) {
     }
   }
  })
-}
 
-
-// start up script that creates some users for testing
-// users have the username 'user1@test.com' .. 'user8@test.com'
-// and the password test123 
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    if (!Meteor.users.findOne()){
-      for (var i=1;i<9;i++){
-        var email = "user"+i+"@test.com";
-        var username = "user"+i;
-        var avatar = "ava"+i+".png"
-        console.log("creating a user with password 'test123' and username/ email: "+email);
-        Meteor.users.insert({profile:{username:username, avatar:avatar}, emails:[{address:email}],services:{ password:{"bcrypt" : "$2a$10$I3erQ084OiyILTv8ybtQ4ON6wusgPbMZ6.P33zzSDei.BbDL.Q4EO"}}});
-      }
-    } 
-  });
-
-  Meteor.publish("chats", function(){
-    return Chats.find();
-  })
-
-  Meteor.publish("users", function(){
-    return Meteor.users.find();
-  })
-}
+/////// END ///////////////
