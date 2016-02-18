@@ -1,6 +1,9 @@
 Chats = new Mongo.Collection("chats");
 
 if (Meteor.isClient) {
+  // subscribe
+  Meteor.subscribe("chats");
+  Meteor.subscribe("users");
   // set up the main template the the router will use to build pages
   Router.configure({
     layoutTemplate: 'ApplicationLayout'
@@ -141,4 +144,12 @@ if (Meteor.isServer) {
       }
     } 
   });
+
+  Meteor.publish("chats", function(){
+    return Chats.find();
+  })
+
+  Meteor.publish("users", function(){
+    return Users.find();
+  })
 }
