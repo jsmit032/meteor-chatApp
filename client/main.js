@@ -19,13 +19,17 @@ Router.route('/chat/:_id', function () {
 	// the user they want to chat to has id equal to 
 	// the id sent in after /chat/... 
 	var otherUserId = this.params._id;
-	// find a chat that has two users that match current user id
-	// and the requested user id
-	var filter = {$or:[
-		{user1Id:Meteor.userId(), user2Id:otherUserId}, 
-		{user2Id:Meteor.userId(), user1Id:otherUserId}
-	]};
-	Meteor.call("addChat", Session.get("chatId"));
+	Meteor.call("addChat", otherUserId);
+
+	Meteor.call('getChatId', Meteor.userId(), otherUserId, function(error, result) {
+	 	if (error) {
+	 		console.log(error);
+	 	}
+		else {
+	  	console.log(result);
+		}
+	});
+	
 	this.render("navbar", {to:"header"});
 	this.render("chat_page", {to:"main"});  
 });
@@ -100,6 +104,7 @@ Template.chat_page.events({
 		// see if we can find a chat object in the database
 		// to which we'll add the message
 		var chat = Chats.findOne({_id:Session.get("chatId")});
+		console.log(chat);
 		if (chat){// ok - we have a chat to use
 		  var msgs = chat.messages; // pull the messages property
 		  var userId = Meteor.userId();
@@ -121,5 +126,11 @@ Template.chat_page.events({
 		}
 	}
 })
+
+////////
+// CLIENT METHODS
+/////////
+
+
 
 /////// END ///////////////
