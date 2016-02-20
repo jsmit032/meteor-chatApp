@@ -26,7 +26,7 @@ Router.route('/chat/:_id', function () {
 	 		console.log(error);
 	 	}
 		else {
-	  	console.log(result);
+	  	Session.set("chatId", result);
 		}
 	});
 	
@@ -62,9 +62,12 @@ Template.available_user.helpers({
 
 Template.chat_page.helpers({
 	messages:function(){
-		if (!chat) {return} //give up
+		var chat = Chats.findOne({_id:Session.get("chatId")});
+		if (!chat) {
+			console.log("can't find chat!!!");
+			return;
+		} //give up
 		else {
-	  	var chat = Chats.findOne({_id:Session.get("chatId")});
 	  	return chat.messages;
 		}
 	}, 
@@ -115,16 +118,17 @@ Template.chat_page.events({
 		  // is a good idea to insert data straight from the form
 		  // (i.e. the user) into the database?? certainly not. 
 		  // push adds the message to the end of the array
-		  msgs.push({text: event.target.chat.value, owner: Meteor.users.findOne({_id: userId})});
+		  msgs.push({text: event.target.chat.value, owner: userId});
 		  console.log(msgs);
 		  // reset the form
 		  event.target.chat.value = "";
 		  // put the messages array onto the chat object
 		  chat.messages = msgs;
+		  console.log(chat);
 		  // update the chat object in the database.
-		  Chats.update(chat._id, chat);
+		  Meteor.call("addNewMessage", chat);
 		}
-	}
+	},
 })
 
 ////////

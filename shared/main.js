@@ -27,9 +27,10 @@ Meteor.methods({
   	return chat._id;
  	},
 
-	// getChatId:function(user1, user2){
-	// 	var chat = Chats.findOne({user1Id:user1, user2Id:user2});
-	// 	console.log("user1: " + user1);
-	// 	console.log("user2: " + user2);
-	// }
+ 	addNewMessage: function(chat){
+ 		console.log("updating DB! ");
+ 		console.log(chat);
+ 		Chats.update(chat._id, chat);
+ 	},
+
 })
