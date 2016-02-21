@@ -19,16 +19,13 @@ Router.route('/chat/:_id', function () {
 	// the user they want to chat to has id equal to 
 	// the id sent in after /chat/... 
 	var otherUserId = this.params._id;
-	Meteor.call("addChat", otherUserId);
 
-	Meteor.call('getChatId', Meteor.userId(), otherUserId, function(error, result) {
-	 	if (error) {
-	 		console.log(error);
-	 	}
-		else {
-	  	Session.set("chatId", result);
-		}
-	});
+	var id = Meteor.call("addChat", otherUserId, function(err, res){
+    if (!err){// all good
+      console.log("event callback recieved id: " + res);
+      Session.set("chatId", res);
+    }
+  });
 	
 	this.render("navbar", {to:"header"});
 	this.render("chat_page", {to:"main"});  
@@ -64,7 +61,8 @@ Template.chat_page.helpers({
 	messages:function(){
 		var chat = Chats.findOne({_id:Session.get("chatId")});
 		if (!chat) {
-			console.log("can't find chat!!!");
+			// Error in getting chatId???
+			console.log("chat_page helper: " + chat._id);
 			return;
 		} //give up
 		else {

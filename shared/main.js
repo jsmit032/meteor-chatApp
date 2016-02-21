@@ -22,11 +22,6 @@ Meteor.methods({
 		}
 	},
 
-	getChatId: function (user1, user2) {
-  	var chat = Chats.findOne({user1Id:user1, user2Id:user2});
-  	return chat._id;
- 	},
-
  	addNewMessage: function(chat){
  		console.log("updating DB! ");
  		console.log(chat);
